@@ -5,6 +5,9 @@
 #TODO: How to handly different files in build?
 #TODO: Make output depend on the templates.
 
+# -pg (for compiling and linking) needed for profiling with gprof
+# disable inlining for profiling
+
 CXX 		:= g++
 LD 		:= g++
 MKDIR 		:= mkdir
