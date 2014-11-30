@@ -1,12 +1,18 @@
 #include "sorting-algorithms.h"
 
-// template <>
-// void insertionSort (std::vector <int> & array) { 
-//   for (auto i = array.begin() + 1; i != array.end(); ++i) {
-//     auto j = i;
-//     while ((j != (array.begin() + 1)) && less <int> ((*j), (*(j - 1)))) {
-//       std::swap <int> ((*(j - 1)), (*j));
-//       --j;
-//     }
-//   }
-// }
+typedef std::vector <int>::iterator RandomAccessIteratorInt;
+
+void insertionSortInt (RandomAccessIteratorInt begin, RandomAccessIteratorInt end) {
+  std::vector <int> tmp (begin, end);
+  insertionSort (tmp.begin(), tmp.end());
+}
+
+void quicksortInt (RandomAccessIteratorInt begin, RandomAccessIteratorInt end) {
+  std::vector <int> tmp (begin, end);
+  quicksort (tmp.begin(), tmp.end());
+}
+
+void mergesortInt (RandomAccessIteratorInt begin, RandomAccessIteratorInt end) {
+  std::vector <int> tmp (begin, end);
+  mergesort (tmp.begin(), tmp.end());
+}

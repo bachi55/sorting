@@ -33,4 +33,11 @@ bool less (const T & a, const T & b) { return a < b; };
 
 #include "sorting-algorithms.tpp"
 
+// TODO: Why does spezialization not work?
+typedef std::vector <int>::iterator RandomAccessIteratorInt;
+
+void insertionSortInt (RandomAccessIteratorInt begin, RandomAccessIteratorInt end);
+void quicksortInt (RandomAccessIteratorInt begin, RandomAccessIteratorInt end);
+void mergesortInt (RandomAccessIteratorInt begin, RandomAccessIteratorInt end);
+
 #endif
