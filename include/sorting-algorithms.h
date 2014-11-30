@@ -2,6 +2,7 @@
 #define SORT_H
 
 #include <algorithm>
+#include <iterator>
 #include <vector>
 #include <sys/types.h>
 
@@ -14,13 +15,17 @@ template <typename RandomAccessIterator>
 void quicksort (RandomAccessIterator begin, RandomAccessIterator end);
 
 // Theta(n log(n))
+// Wrapper to keep the interface for the sorting functions consistent
 template <typename RandomAccessIterator>
 void mergesort (RandomAccessIterator begin, RandomAccessIterator end);
 
-template <typename RandomAccessIterator>
-void merge (RandomAccessIterator left_begin, RandomAccessIterator left_end
-	  , RandomAccessIterator right_begin, RandomAccessIterator right_end);
+// Function to implement mergesort
+template <typename T>
+std::vector <T> _mergesort (std::vector <T> vector);
 
+// Function to implement the merge-step
+template <typename T>
+std::vector <T> merge (std::vector <T> left, std::vector <T> right);
 
 
 template <typename T>

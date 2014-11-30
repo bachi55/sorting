@@ -59,53 +59,75 @@ void quicksort (RandomAccessIterator begin, RandomAccessIterator end) {
   if (i < (end - 1)) quicksort (i, end);
 }
 
+
 template <typename RandomAccessIterator>
 void mergesort (RandomAccessIterator begin, RandomAccessIterator end) {
+  // retrive the iterators container type
+  typedef typename std::iterator_traits <RandomAccessIterator>::value_type ValueType;
+  
+  // TODO: Does this makes a copy of the data?
+  std::vector <ValueType> tmp (begin, end);
+  auto sortedVector = _mergesort (tmp);
+  
+  if (std::distance (begin, end) != sortedVector.size())
+    throw std::runtime_error ("Error: Merged vector size exceeds input vector size.");
+  
+  // copy the sorted vector into the given range
+  std::copy (sortedVector.begin(), sortedVector.end(), begin);
+  // TODO: Would it be better to std::move the data, since it could happen that complex objects are sorted?
+  // std::move (sortedVector.begin(), sortedVector.end(), begin);
+}
+
+template <typename T>
+std::vector <T> _mergesort (std::vector <T> vector) {
   // check for an empty or single element array
-  if (std::distance (begin, end) <= 1) return;
+  if (vector.size() <= 1) return vector;
   
-  for (auto it = begin; it != end; ++it) { std::printf ("%i ", *it); } std::printf ("\n");
+  // get pointer to the middle element
+  auto middle = std::next (
+    vector.begin(), std::distance (vector.begin(), vector.end()) / 2
+  );
   
-  auto middle = std::distance (begin, end) / 2;
+  typedef typename std::vector <T> VectorType;
+  auto left  = _mergesort (VectorType (vector.begin(), middle));
+  auto right = _mergesort (VectorType (middle, vector.end()));
   
-  // set iterator for the ranges of the left and right vector parts
-  // NOTE: end always points one element after the last element (like in std::)
-  auto left_begin = begin;
-  auto left_end = (left_begin + middle) + 1;
-  auto right_begin = left_end;
-  auto right_end = end;
-  
-  mergesort (left_begin, left_end);
-  mergesort (right_begin, right_end);
-  
-  merge (left_begin, left_end, right_begin, right_end);
-  
-  return;
+  return merge (left, right);
 }
 
-template <typename RandomAccessIterator>
-void merge (RandomAccessIterator left_begin, RandomAccessIterator left_end
-	  , RandomAccessIterator right_begin, RandomAccessIterator right_end) 
-{
-  return;
+template <typename T>
+std::vector <T> merge (std::vector <T> left, std::vector <T> right) {
+  // create new vector to store the merged data
+  std::vector <int> mergedVector (left.size() + right.size());
+  
+  auto itMergedVector 	= mergedVector.begin()
+     , itLeft 		= left.begin()
+     , itRight	 	= right.begin();
+  
+  // merge both vectors and sort them meanwhile
+  while ((itLeft != left.end()) && (itRight != right.end())) {
+    if (less (*itLeft, *itRight)) {
+      *itMergedVector = *itLeft;
+      itLeft++;
+      itMergedVector++;
+    } else {
+      *itMergedVector = *itRight;
+      itRight++;
+      itMergedVector++;
+    }
+  }
+  // empty left vector
+  while (itLeft != left.end()) {
+    *itMergedVector = *itLeft;
+    *itLeft++;
+    itMergedVector++;
+  }
+  // empty right vector
+  while (itRight != right.end()) {
+    *itMergedVector = *itRight;
+    itRight++;
+    itMergedVector++;
+  }
+  
+  return mergedVector;
 }
-
-// template <typename RandomAccessIterator>
-// void mergesort (RandomAccessIterator begin, RandomAccessIterator end) {
-//   // check for empty array
-//   if (begin == end) return;
-//   
-//   auto merge = [](RandomAccessIterator left, RandomAccessIterator right) {
-//     auto res = 
-//     auto i = 0;
-//     auto j = 0;
-//     while (){
-//       if (less (left[i], right[j]))
-//     }
-//   };
-//   
-//   auto middle = std::distance (end, begin) / 2;
-//   auto leftArray = mergesort (begin, middle);
-//   auto rightArray = mergesort (middle, end);
-//   auto merge = (leftArray, rightArray);
-// }

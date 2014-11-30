@@ -8,14 +8,7 @@
 
 // function to check, wether two vectors are equal
 auto isEqual = [](const std::vector <int> & v1, const std::vector <int> & v2) { 
-  if (v1.size() != v2.size()) return false;
-  
-  auto it1 = v1.begin();
-  auto it2 = v2.begin();
-  for (; it1 != v1.end(); ++it1, ++it2) 
-    if ((*it1) != (*it2)) return false;
-    
-  return true;
+  return std::equal (v1.begin(), v1.end(), v2.begin());
 }; 
 
 // function to print a vector
@@ -146,10 +139,15 @@ TEST (sort, quicksort) {
 }
 
 TEST (sort, mergesort) {
-//   std::vector <int> vector = {9, 4, 2, 4, 1, 5};
-//   printVector (vector);
-//   mergesort (vector.begin(), vector.end());
-//   printVector (vector);
+  ASSERT_EQ (
+    feedSortAlgoWithBorderCases <std::vector <int>::iterator> (mergesort <std::vector <int>::iterator>),
+    true
+  );
+  
+  ASSERT_EQ (
+    feedSortAlgoWithRandData <std::vector <int>::iterator> (mergesort <std::vector <int>::iterator>),
+    true
+  );
 }
 
 
