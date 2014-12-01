@@ -6,24 +6,32 @@
 #include <vector>
 #include <sys/types.h>
 
-// O(n^2), Omage(n)
+// function to implement the insertion sort algorithm
+//
+// time complexity: worst case O(n^2), best case O(n)
 template <typename RandomAccessIterator>
 void insertionSort (RandomAccessIterator begin, RandomAccessIterator end);
 
-
+// function to implement the quicksort algorithm
+//
+// time complexity: worst case O(n^2), best case O(n log(n))
+// NOTE: the time complexity depends on the choice of the pivot element
 template <typename RandomAccessIterator>
 void quicksort (RandomAccessIterator begin, RandomAccessIterator end);
 
-// Theta(n log(n))
 // Wrapper to keep the interface for the sorting functions consistent
 template <typename RandomAccessIterator>
 void mergesort (RandomAccessIterator begin, RandomAccessIterator end);
 
-// Function to implement mergesort
+// function to implement mergesort algorithm
+//
+// time complexity: Theta(n log(n))
 template <typename T>
 std::vector <T> _mergesort (std::vector <T> vector);
 
-// Function to implement the merge-step
+// function to implement the merge-step
+//
+// time complexity: Theta(n), where n is left.size + right.size
 template <typename T>
 std::vector <T> merge (std::vector <T> left, std::vector <T> right);
 
