@@ -355,7 +355,7 @@ TEST (correctness, getMedianOfThree) {
   }
 }
 
-TEST (DISABLED_correctness, partition) {
+TEST (correctness, partition) {
   {
     std::vector <int> v = {3, 1, 2, 4, 5};
     auto p = partition (v.begin(), v.end(), v.begin());
@@ -421,7 +421,7 @@ TEST (DISABLED_correctness, partition) {
 
 
 
-TEST (DISABLED_measurements, random_generators) {
+TEST (measurements, random_generators) {
   // create a seed for the random generator
   std::string seedStr = "meleg";
   std::seed_seq seed (seedStr.begin(), seedStr.end());
@@ -633,86 +633,6 @@ TEST (DISABLED_measurements, random_generators) {
 
 typedef std::function <void (RandomAccessIteratorInt, RandomAccessIteratorInt)> SortFunctionHandle;
 typedef std::vector <std::function <std::vector <int> (uint)>>		  ScenarioFunctionHandle;
-
-// TEST (measurements, sorting) { 
-TEST (DISABLED_measurements, sorting) { 
-  std::vector <SortFunctionHandle> sortFunctions;
-  sortFunctions.push_back (insertionSort <RandomAccessIteratorInt>);
-  sortFunctions.push_back (insertionSort2 <RandomAccessIteratorInt>);
-  sortFunctions.push_back (quicksort <RandomAccessIteratorInt>);
-  sortFunctions.push_back (quicksort2 <RandomAccessIteratorInt>);
-//   sortFunctions.push_back (mergesort <RandomAccessIteratorInt>);
-  // reference
-//   sortFunctions.push_back (std::sort <RandomAccessIteratorInt>);
-//   sortFunctions.push_back (quicksort3 <RandomAccessIteratorInt>);
-//   sortFunctions.push_back (quicksort4 <RandomAccessIteratorInt>);
-  
-  std::vector <std::string> sortFunctionNames;
-  sortFunctionNames.push_back ("insertionSort");
-  sortFunctionNames.push_back ("insertionSort2");
-  sortFunctionNames.push_back ("quicksort");
-  sortFunctionNames.push_back ("quicksort2");
-//   sortFunctionNames.push_back ("mergesort");
-  // reference
-//   sortFunctionNames.push_back ("std::sort");
-//   sortFunctionNames.push_back ("quicksort3");
-//   sortFunctionNames.push_back ("quicksort4");
-  
-  // configure benchmark
-  uint nrun = 1;
-  uint minInputLength = 1, maxInputLength = 150; 
-  std::vector <uint> sortInputLenghts (maxInputLength - minInputLength + 1);
-  std::iota (sortInputLenghts.begin(), sortInputLenghts.end(), minInputLength);
-  
-  std::vector <std::string> scenarioNames = {"sorted", "inv_sorted", "permuted", "repeated_elements"};
-  // NOTE: here it is fixed, that 'int' values are sorted
-  ScenarioFunctionHandle scenarioFunctions;
-  scenarioFunctions.push_back (getSortedRandomVectorAsc);
-  scenarioFunctions.push_back (getSortedRandomVectorDes);
-  scenarioFunctions.push_back (getRandomVector);
-  scenarioFunctions.push_back (getRandomVectorRep);
-  
-  // configure file-operations
-  const std::string resultDir = "/home/bach/Documents/algorithm-exercises/sort/measurements/";
-  
-  char temp [256];
-  std::sprintf (temp, "# %2s %10s %10s %10s %10s %15s\n", "n", "min[us]", "max[us]", "mean[us]", "sd[us]", "measurements[us]");
-  std::string headerTimes (temp);
-  std::sprintf (temp, "# %2s %10s %10s %10s %10s %15s\n", "n", "min[cyc]", "max[cyc]", "mean[cyc]", "sd[cyc]", "measurements[cyc]");
-  std::string headerCycles (temp);
-  
-  // run for every sorting algorithm
-  for (uint ind = 0; ind < sortFunctions.size(); ind++) {
-    uint sceIndex = 0;
-    
-    std::printf ("sort function %i/%i\n", ind + 1, sortFunctions.size());
-    
-    // run for every scenario
-    for (auto & sceFct : scenarioFunctions) {
-      
-      std::printf ("scenario %i/%i\n", sceIndex + 1, scenarioFunctions.size());
-      
-      // create matrices to store the measuring results
-      Matrix <timeDuration> timeDurationMeasurements (sortInputLenghts.size(), nrun, timeDuration());
-      Matrix <uint64_t> cycleMeasurements (sortInputLenghts.size(), nrun, 0);
-      uint i = 0;
-      
-      // run for increasing vector length, which has to be sorted
-      for (auto it = sortInputLenghts.begin(); it != sortInputLenghts.end(); ++it) {
-	auto input = sceFct (*it);
-	timeDurationMeasurements.setRow (i
-				      , benchmark <timeDuration, timePoint, void, RandomAccessIteratorInt, RandomAccessIteratorInt> (myClock, nrun, sortFunctions[ind], input.begin(), input.end()));
-	i++;
-      }
-    
-      // write out measurements
-      const std::string filename_time = resultDir + sortFunctionNames[ind] + "-" + scenarioNames[sceIndex] + "-time";
-      writeMeasurements <timeDuration> (filename_time, headerTimes, sortInputLenghts, timeDurationMeasurements);
-      
-      sceIndex++;
-    }
-  }
-}
 
 typedef std::function <void (std::vector <int>)> VectorSortFunctionHandle;
 
