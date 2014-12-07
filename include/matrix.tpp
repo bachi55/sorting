@@ -1,9 +1,9 @@
 #include "matrix.h"
-/*
+
 template <class T>
 Matrix <T> ::Matrix ()
-  : Matrix (0, 0) {}
-  */
+  : Matrix (0, 0, std::vector <T> ()) {}
+  
 template <class T>
 Matrix <T> ::Matrix (uint nrow, uint ncol, const T & initElement) 
   : _nrow (nrow)
@@ -85,6 +85,21 @@ std::vector <T> Matrix <T> ::getRow (uint row) const {
 }
 
 template <class T>
+void Matrix <T> ::setRow (uint row, const std::vector <T> & newData) {
+  
+  if (row > (_nrow - 1))
+    throw std::invalid_argument ("Error: matrix index out of bounce.");
+  
+  if ( newData.size() != (_ncol))
+    throw std::invalid_argument ("Error: New row does not have the correct size.");
+  
+  auto rowData 	    = _data.begin() + ((_ncol) * row);
+  
+  std::copy (newData.begin(), newData.end(), rowData);
+  
+}
+
+template <class T>
 void Matrix <T> ::setRow (uint row, std::vector <T> && newData) {
   
   if (row > (_nrow - 1))
@@ -95,19 +110,20 @@ void Matrix <T> ::setRow (uint row, std::vector <T> && newData) {
   
   auto rowData 	    = _data.begin() + ((_ncol) * row);
   
-  for (auto newRowData = newData.begin (); newRowData != newData.end(); ++newRowData, ++rowData) {
-    (*rowData) = (*newRowData);
-  }
+  std::move (newData.begin(), newData.end(), rowData);
   
 }
 
+
 template <typename T>
 Matrix <T> createIdentityMatrix (uint nrow) {
+  
   Matrix <T> E = Matrix <T> (nrow, nrow, T(0));
   
   for (uint i = 0; i < nrow; i++) E (i,i) = T(1);
   
   return E;
+  
 }
 
 // Specializing a member function template need to be done in an .cpp file, since otherwise the

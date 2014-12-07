@@ -132,7 +132,6 @@ std::vector <Unit> benchmark (std::function <Measure (void)> measuringFunction
   }
   
   return measurements;
-  
 }
 
 // template spezialization
