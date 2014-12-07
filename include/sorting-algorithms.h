@@ -130,14 +130,29 @@ std::vector <T> _mergesort (std::vector <T> vector);
 template <typename T>
 std::vector <T> merge (std::vector <T> left, std::vector <T> right);
 
+template <typename T>
+void mergesortVec (std::vector <T> input) {
+  mergesort (input.begin(), input.end());
+}
+
 template <typename RandomAccessIterator>
 void mergesort2 (RandomAccessIterator begin, RandomAccessIterator end);
+
+template <typename T>
+void mergesort2Vec (std::vector <T> input) {
+  mergesort2 (input.begin(), input.end());
+}
 
 template <typename RandomAccessIterator>
 void merge2 (RandomAccessIterator begin, RandomAccessIterator middle, RandomAccessIterator end);
 
 template <typename RandomAccessIterator>
 void mergesort3 (RandomAccessIterator begin, RandomAccessIterator end);
+
+template <typename T>
+void mergesort3Vec (std::vector <T> input) {
+  mergesort3 (input.begin(), input.end());
+}
 
 // --------------------------------------------------------------------------------------
 // COMPARING

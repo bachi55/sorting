@@ -48,7 +48,7 @@ bool feedSortAlgoWithRandData (
     sort (vector.begin(), vector.end());
     std::sort (referenceVector.begin(), referenceVector.end());
     
-    if (! isEqual (vector, referenceVector)) {
+    if (vector != referenceVector) {
       printVector (randVector, "input vector: \t\t\t");
       printVector (referenceVector, "sorted vector (by std::): \t");
       printVector (vector, "sorted vector (by own impl.): \t");
@@ -76,7 +76,7 @@ bool feedSortAlgoWithBorderCases (
   std::vector <int> vector = singleElement;
   sort (vector.begin(), vector.end());
   
-  if (! isEqual (vector, singleElement)) {
+  if (vector != singleElement) {
     printVector (singleElement, "input vector: ");
     printVector (vector, "sorted vector: ");
     
@@ -86,7 +86,7 @@ bool feedSortAlgoWithBorderCases (
   vector = emptyArray;
   sort (vector.begin(), vector.end());
   
-  if (! isEqual (vector, emptyArray)) {
+  if (vector != emptyArray) {
     printVector (emptyArray, "input vector: ");
     printVector (vector, "sorted vector: ");
     
@@ -96,7 +96,7 @@ bool feedSortAlgoWithBorderCases (
   vector = sameElementsEven;
   sort (vector.begin(), vector.end());
   
-  if (! isEqual (vector, sameElementsEven)) {
+  if (vector != sameElementsEven) {
     printVector (sameElementsEven, "input vector: ");
     printVector (vector, "sorted vector: ");
     
@@ -106,7 +106,7 @@ bool feedSortAlgoWithBorderCases (
   vector = sameElementsOdd;
   sort (vector.begin(), vector.end());
   
-  if (! isEqual (vector, sameElementsOdd)) {
+  if (vector != sameElementsOdd) {
     printVector (sameElementsOdd, "input vector: ");
     printVector (vector, "sorted vector: ");
     
@@ -724,11 +724,14 @@ TEST (measurements, sorting2) {
 //   sortFunctions.push_back (insertionSort2Vec <int>);
 //   sortFunctions.push_back (quicksortVec <int>);
 //   sortFunctions.push_back (quicksort2Vec <int>);
-//   sortFunctions.push_back (quicksort3Vec <int>);
+  sortFunctions.push_back (quicksort3Vec <int>);
 //   sortFunctions.push_back (quicksort4Vec <int>);
 //   sortFunctions.push_back (quicksort5Vec <int>);
-//   sortFunctions.push_back (quicksort6Vec <int>);
+  sortFunctions.push_back (quicksort6Vec <int>);
 //   sortFunctions.push_back (qsortVec <int>);
+//   sortFunctions.push_back (mergesortVec <int>);
+//   sortFunctions.push_back (mergesort2Vec <int>);
+//   sortFunctions.push_back (mergesort3Vec <int>);
   
   
   std::vector <std::string> sortFunctionNames;
@@ -736,11 +739,15 @@ TEST (measurements, sorting2) {
 //   sortFunctionNames.push_back ("insertionSort2Vec");
 //   sortFunctionNames.push_back ("quicksortVec");
 //   sortFunctionNames.push_back ("quicksort2Vec");
-//   sortFunctionNames.push_back ("quicksort3Vec");
+  sortFunctionNames.push_back ("quicksort3Vec");
 //   sortFunctionNames.push_back ("quicksort4Vec");
 //   sortFunctionNames.push_back ("quicksort5Vec");
-//   sortFunctionNames.push_back ("quicksort6Vec");
+  sortFunctionNames.push_back ("quicksort6Vec");
 //   sortFunctionNames.push_back ("qsortVec");
+//   sortFunctionNames.push_back ("mergesortVec");
+//   sortFunctionNames.push_back ("mergesort2Vec");
+//   sortFunctionNames.push_back ("mergesort3Vec");
+  
   
   // configure benchmark
   uint nrun = 10;

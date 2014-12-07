@@ -7,7 +7,8 @@ for (sce in scenarios) {
 
 #   algorithms <- c("insertionSort", "quicksort", "mergesort", "insertionSort2", "quicksort2", "std::sort", "quicksort3", "quicksort4")
 #   algorithms <- c("quicksort", "quicksort2", "quicksort3", "quicksort4")
-  algorithms <- c("qsortVec", "quicksort2Vec", "quicksort3Vec", "quicksort6Vec")
+#   algorithms <- c("qsortVec", "quicksort2Vec", "quicksort3Vec", "quicksort6Vec")
+  algorithms <- c("qsortVec", "mergesortVec", "mergesort2Vec", "quicksort3Vec", "quicksort6Vec")
 #   algorithms <- c("default_random_engine", "minstd_rand", "minstd_rand0", "mt19937", "ranlux24")
 #   algorithms <- c("default_random_engine", "minstd_rand", "minstd_rand0", "mt19937")
 #   algorithms <- c("default_random_engine", "mt19937", "std::rand")
@@ -25,7 +26,8 @@ for (sce in scenarios) {
   nAlgorithms <- length (algorithms)
 
   algorithmsNames <- algorithms
-  algorithmsNames <- c("std::sort", "small inp. & rand. Pivot", "naive", "+ fat partition")
+  algorithmsNames <- c("std::sort", "mergesort (naive)", "mergesort (inplace merge)", "quicksort (naive)", "quicksort (+ all)")
+#   algorithmsNames <- c("std::sort", "naive", "inplace merge", "std::inplace_merge")
 
   ## extract data to plot (times)
   x.space <- 1:3000
@@ -53,8 +55,8 @@ for (sce in scenarios) {
   colnames (df) <- c("n", "min", "max", "mean", "algorithm")
 
   ggplot (df, aes (x=n, y=mean)) +
-#     ggtitle (sce) +	
-    ggtitle (paste ("Quicksort (", sce, ")", sep="")) + 
+    ggtitle (sce) +	
+#     ggtitle (paste ("Quicksort (", sce, ")", sep="")) + 
     ylim(min (min), max (max)) + xlab ("n") + ylab ("times (us)") +
     geom_line (aes (group=algorithm, color=algorithm), alpha=0.75, size=0.3) +
     geom_ribbon (aes (ymin=min, ymax=max, color=algorithm, fill=algorithm), alpha=0.25, size=0.3) +
