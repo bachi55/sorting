@@ -14,12 +14,14 @@ MKDIR 		:= mkdir
 RM		:= rm -rf
 CXXFLAGS 	 = -std=c++11 -Wall
 
-OPTIFLAGS 	:= -O3
-DEBUGFLAGS 	:= -g
+OPTIFLAGS 	:= -O3 -pg
+DEBUGFLAGS 	:= -g -pg
 ifeq ($(BUILD), debug)
 	CXXFLAGS += $(DEBUGFLAGS)
+	LDFLAGS  += -pg
 else
 	CXXFLAGS += $(OPTIFLAGS)
+	LDFLAGS  += -pg
 endif
 
 CXXFLAGS += -Iinclude
@@ -35,9 +37,7 @@ SOURCES_BUILD 	:= $(wildcard src/build/*.cpp)
 OBJECTS_BUILD 	:= $(patsubst %.cpp, %.o, $(SOURCES_BUILD))
 
 SOURCES_TEST 	:= $(wildcard src/unittest/*.cpp)
-# SOURCES_TEST 	:= $(wildcard src/*_unittest.cpp)
 OBJECTS_TEST 	:= $(patsubst %.cpp, %.o, $(SOURCES_TEST))
-# OBJECTS_TEST 	:= $(patsubst %.cpp, %_unittest.o, $(SOURCES))
 
 OUT 		:= bin
 BINARY_BUILD 	:= $(OUT)/sort
