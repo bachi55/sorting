@@ -229,8 +229,8 @@ void siftUp (RandomAccessIterator begin
   }
   
   // post condition: the heap should be repaired now
-  if (! isHeap <RandomAccessIterator> (begin, end, 0, comp))
-    throw std::invalid_argument ("Error: Heap is stil broken after 'siftUp'.");
+//   if (! isHeap <RandomAccessIterator> (begin, end, 0, comp))
+//     throw std::invalid_argument ("Error: Heap is stil broken after 'siftUp'.");
 }
 
 // This function repairs a heap if a new element has been added in the beginning 
@@ -263,8 +263,8 @@ void siftDown (RandomAccessIterator begin
   }
   
   // post condition: the heap should be repaired now
-  if (! isHeap <RandomAccessIterator> (begin, end, 0, comp)) 
-    throw std::invalid_argument ("Error: Heap is stil broken after 'siftDown'.");  
+//   if (! isHeap <RandomAccessIterator> (begin, end, 0, comp)) 
+//     throw std::invalid_argument ("Error: Heap is stil broken after 'siftDown'.");  
 }
 
 template <typename RandomAccessIterator>
@@ -276,6 +276,9 @@ void buildHeap (RandomAccessIterator begin, RandomAccessIterator end
   
   for (auto it = begin; it != std::next (end); ++it)
     siftUp <RandomAccessIterator> (begin, it, comp);
+  
+  if (! isHeap <RandomAccessIterator> (begin, end, 0, comp)) 
+    throw std::invalid_argument ("Error: Failed to build up the heap."); 
 }
 
 template <typename RandomAccessIterator>

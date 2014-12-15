@@ -174,7 +174,7 @@ std::vector <int> getRandomVectorRep (uint n) {
 // CORRECTNESS
 // ------------------------------------------------------------------------------
 
-TEST (DISABLED_correctness, instertionSort) {
+TEST (correctness, instertionSort) {
   ASSERT_EQ (
     feedSortAlgoWithBorderCases <std::vector <int>::iterator> (insertionSort <std::vector <int>::iterator>),
     true
@@ -186,7 +186,7 @@ TEST (DISABLED_correctness, instertionSort) {
   );
 }
 
-TEST (DISABLED_correctness, quicksort) {
+TEST (correctness, quicksort) {
   ASSERT_EQ (
     feedSortAlgoWithBorderCases <std::vector <int>::iterator> (quicksort <std::vector <int>::iterator>),
     true
@@ -198,7 +198,7 @@ TEST (DISABLED_correctness, quicksort) {
   );
 }
 
-TEST (DISABLED_correctness, mergesort) {
+TEST (correctness, mergesort) {
   ASSERT_EQ (
     feedSortAlgoWithBorderCases <std::vector <int>::iterator> (mergesort <std::vector <int>::iterator>),
     true
@@ -210,7 +210,7 @@ TEST (DISABLED_correctness, mergesort) {
   );
 }
   
-TEST (DISABLED_correctness, insertionSort_naive) {
+TEST (correctness, insertionSort_naive) {
   ASSERT_EQ (
     feedSortAlgoWithBorderCases <std::vector <int>::iterator> (insertionSort_naive <std::vector <int>::iterator>),
     true
@@ -222,7 +222,7 @@ TEST (DISABLED_correctness, insertionSort_naive) {
   );
 }
 
-TEST (DISABLED_correctness, quicksort_naive) {
+TEST (correctness, quicksort_naive) {
   ASSERT_EQ (
     feedSortAlgoWithBorderCases <std::vector <int>::iterator> (quicksort_naive <std::vector <int>::iterator>),
     true
@@ -234,7 +234,7 @@ TEST (DISABLED_correctness, quicksort_naive) {
   );
 }
 
-TEST (DISABLED_correctness, mergesort_naive) {
+TEST (correctness, mergesort_naive) {
   ASSERT_EQ (
     feedSortAlgoWithBorderCases <std::vector <int>::iterator> (mergesort_naive <std::vector <int>::iterator>),
     true
@@ -246,7 +246,7 @@ TEST (DISABLED_correctness, mergesort_naive) {
   );
 }
 
-// TEST (DISABLED_correctness, heapsort) {
+// TEST (correctness, heapsort) {
 TEST (correctness, heapsort) {
   ASSERT_EQ (
     feedSortAlgoWithBorderCases <std::vector <int>::iterator> (heapsort <std::vector <int>::iterator>),
@@ -554,7 +554,7 @@ TEST (DISABLED_measurements, sorting2) {
   }
 }
 
-TEST (DISABLED_correctness, parentIndex) {
+TEST (correctness, parentIndex) {
   std::vector <int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   
   ASSERT_EQ (parentIndex (vec.begin(), vec.begin()), vec.begin());
@@ -567,7 +567,7 @@ TEST (DISABLED_correctness, parentIndex) {
   ASSERT_EQ (parentIndex (std::next (vec.begin(), 4), vec.begin()), std::next (vec.begin()));
 }
 
-TEST (DISABLED_correctness, left_and_right_index) {
+TEST (correctness, left_and_right_index) {
   std::vector <int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   
   ASSERT_EQ (leftIndex (vec.begin(), vec.begin(), vec.end()), std::next (vec.begin()));
@@ -583,7 +583,7 @@ TEST (DISABLED_correctness, left_and_right_index) {
   ASSERT_EQ (rightIndex (std::next (vec.begin(), 5), vec.begin(), vec.end()), vec.end());
 }
 
-TEST (DISABLED_correctness, isHeap) {
+TEST (correctness, isHeap) {
   {
     std::vector <int> heap;
     ASSERT_EQ (isHeap <std::vector <int>::iterator> (heap.begin(), heap.end(), 0, lessIt <std::vector <int>::iterator>), true);
@@ -648,7 +648,7 @@ TEST (DISABLED_correctness, isHeap) {
   }  
 }
 
-TEST (DISABLED_correctness, siftUp) {
+TEST (correctness, siftUp) {
   {
     std::vector <int> heap;
     ASSERT_EQ (isHeap <std::vector <int>::iterator> (heap.begin(), heap.end(), 0, lessIt <std::vector <int>::iterator>), true);
@@ -688,7 +688,7 @@ TEST (DISABLED_correctness, siftUp) {
 //   } 
 }
 
-TEST (DISABLED_correctness, siftDown) {
+TEST (correctness, siftDown) {
   {
     std::vector <int> heap;
     ASSERT_EQ (isHeap <std::vector <int>::iterator> (heap.begin(), heap.end(), 0, lessIt <std::vector <int>::iterator>), true);
@@ -810,7 +810,7 @@ TEST (DISABLED_correctness, siftDown) {
 //   }
 // }
 
-TEST (DISABLED_correctness, buildHeap) {
+TEST (correctness, buildHeap) {
   {
     std::vector <int> vec  = {1, 1, 1};
     buildHeap <std::vector <int>::iterator> (vec.begin(), vec.end(), greaterIt <std::vector <int>::iterator>);
